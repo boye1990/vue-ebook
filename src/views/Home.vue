@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <span class="icon-close"></span>
     <div id="read"></div>
   </div>
 </template>
