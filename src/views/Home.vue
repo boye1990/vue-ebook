@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <span class="icon-close"></span>
+    <span class="icon-book"></span>
     <div id="read"></div>
   </div>
 </template>
@@ -24,3 +24,9 @@ export default {
   }
 }
 </script>
+<style lang="css" scoped>
+.icon-book{
+  font-size: 30px;
+  color: pink
+}
+</style>
