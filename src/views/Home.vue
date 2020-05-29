@@ -18,7 +18,7 @@ export default {
     }
   },
   mounted () {
-    this.test = this.$store.state.test
+    this.test = this.$store.state.book.test
     this.book = new Epub('/2015_Book_InnovationsInQuantitativeRiskM.epub')
     this.book.renderTo('read', {
       width: window.innerWidth,
@@ -28,7 +28,7 @@ export default {
   methods: {
     setTest () {
       this.$store.dispatch('setTest', 10).then(() => {
-        this.test = this.$store.state.test
+        this.test = this.$store.state.book.test
       })
     }
   }
