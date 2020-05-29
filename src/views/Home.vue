@@ -2,34 +2,23 @@
   <div class="home">
     <div>{{test}}</div>
     <span class="icon-book2" @click="setTest"></span>
-    <div id="read"></div>
   </div>
 </template>
 
 <script>
-import Epub from 'epubjs'
-global.ePub = Epub
+import { mapGetters } from 'vuex'
 export default {
   name: 'Home',
   data () {
     return {
-      book: '',
-      test: 0
     }
   },
-  mounted () {
-    this.test = this.$store.state.book.test
-    this.book = new Epub('/2015_Book_InnovationsInQuantitativeRiskM.epub')
-    this.book.renderTo('read', {
-      width: window.innerWidth,
-      height: window.innerHeight
-    }).display()
+  computed: {
+    ...mapGetters(['test'])
   },
   methods: {
     setTest () {
-      this.$store.dispatch('setTest', 10).then(() => {
-        this.test = this.$store.state.book.test
-      })
+      this.$store.dispatch('setTest', 10)
     }
   }
 }
