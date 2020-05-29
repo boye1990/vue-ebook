@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <span class="icon-book"></span>
+    <span class="icon-book2"></span>
     <div id="read"></div>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
     }
   },
   mounted () {
-    this.book = new Epub('/2010_Book_CyborgsInLatinAmerica.epub')
+    this.book = new Epub('/2015_Book_InnovationsInQuantitativeRiskM.epub')
     this.book.renderTo('read', {
       width: window.innerWidth,
       height: window.innerHeight
@@ -25,7 +25,7 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-.icon-book{
+.icon-book2 {
   font-size: 30px;
   color: pink
 }
