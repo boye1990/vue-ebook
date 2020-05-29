@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <span class="icon-book2"></span>
+    <div>{{test}}</div>
+    <span class="icon-book2" @click="setTest"></span>
     <div id="read"></div>
   </div>
 </template>
@@ -12,15 +13,24 @@ export default {
   name: 'Home',
   data () {
     return {
-      book: ''
+      book: '',
+      test: 0
     }
   },
   mounted () {
+    this.test = this.$store.state.test
     this.book = new Epub('/2015_Book_InnovationsInQuantitativeRiskM.epub')
     this.book.renderTo('read', {
       width: window.innerWidth,
       height: window.innerHeight
     }).display()
+  },
+  methods: {
+    setTest () {
+      this.$store.dispatch('setTest', 10).then(() => {
+        this.test = this.$store.state.test
+      })
+    }
   }
 }
 </script>
