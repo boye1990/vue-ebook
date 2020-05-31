@@ -10,7 +10,13 @@ const routes = [
   },
   {
     path: '/ebook',
-    component: () => import('../views/ebook/index.vue')
+    component: () => import('../views/ebook/index.vue'),
+    children: [
+      {
+        path: ':fileName', // 动态路由，fileName为路由地址ebook后面的字符串
+        component: () => import('../components/ebook/EbookReader.vue')
+      }
+    ]
   }
 ]
 
