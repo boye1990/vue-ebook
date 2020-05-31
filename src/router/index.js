@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: '/ebook' // 让首页重定向到/ebook
+  },
+  {
+    path: '/ebook',
+    component: () => import('../views/ebook/index.vue')
   }
 ]
 
