@@ -40,30 +40,36 @@ export default {
       this.rendition = this.book.renderTo('read', {
         width: window.innerWidth, // 设置宽高为设备宽高
         height: window.innerHeight,
+        snap: true, // 滑屏翻页动画
+        flow: 'paginated', // 滑屏翻页动画
+        manager: 'continuous', // 滑屏翻页动画
         methods: 'default' // 微信兼容性配置
       })
-      this.rendition.display()
-      // 监听touchstart 和 touchend 事件。
-      this.rendition.on('touchstart', event => {
-        // 获取触摸起点x坐标，和时间
-        this.touchstartX = event.changedTouches[0].clientX
-        this.touchstartTime = event.timeStamp
+      this.book.ready.then(() => {
+        this.rendition.display()
+        this.bookReady = true // 滑屏翻页动画
       })
-      this.rendition.on('touchend', event => {
-        // 获取触摸终点x坐标，和时间
-        const offsetX = event.changedTouches[0].clientX - this.touchstartX
-        const time = event.changedTouches[0].clientX - this.touchstartTime
-        if (offsetX > 40 && time < 500) {
-          this.prevPage()
-        } else if (offsetX < -40 && time < 500) {
-          this.nextPage()
-        } else {
-          this.toggleTitleAndMenu()
-          console.log(offsetX, time)
-        }
-        // event.preventDefault()
-        event.stopPropagation()
-      })
+      // // 监听touchstart 和 touchend 事件。
+      // this.rendition.on('touchstart', event => {
+      //   // 获取触摸起点x坐标，和时间
+      //   this.touchstartX = event.changedTouches[0].clientX
+      //   this.touchstartTime = event.timeStamp
+      // })
+      // this.rendition.on('touchend', event => {
+      //   // 获取触摸终点x坐标，和时间
+      //   const offsetX = event.changedTouches[0].clientX - this.touchstartX
+      //   const time = event.changedTouches[0].clientX - this.touchstartTime
+      //   if (offsetX > 40 && time < 500) {
+      //     this.prevPage()
+      //   } else if (offsetX < -40 && time < 500) {
+      //     this.nextPage()
+      //   } else {
+      //     this.toggleTitleAndMenu()
+      //     console.log(offsetX, time)
+      //   }
+      //   event.preventDefault()
+      //   event.stopPropagation()
+      // })
     }
   }
 
