@@ -116,7 +116,10 @@ export default {
   transition: all .3s linear;
 }
 // -enter 显示之前的样式 -leave-to 隐藏之后的样式
-.fade-up-enter, .fade-up-leave-to {
+.fade-up-enter {
+  transform: translate3d(0, px2rem(48), 0);
+}
+.fade-up-leave-to {
   transform: translate3d(0, 100%, 0);
 }
 </style>
