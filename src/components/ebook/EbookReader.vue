@@ -1,13 +1,21 @@
 <template>
     <div class="ebook-reader">
+        <ebook-header></ebook-header>
         <div id="read"></div>
+        <ebook-footer></ebook-footer>
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import EbookHeader from './EbookHeader'
+import EbookFooter from './EbookFooter'
 import Epub from 'epubjs'
 global.epub = Epub
 export default {
+  components: {
+    EbookHeader,
+    EbookFooter
+  },
   computed: {
     ...mapGetters(['fileName'])
   },
