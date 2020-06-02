@@ -5,7 +5,7 @@
         </transition>
         <div id="read"></div>
         <transition name="fade-up">
-            <ebook-footer v-show="isShow"></ebook-footer>
+            <ebook-footer ref="ebookFooter" v-show="isShow"></ebook-footer>
         </transition>
     </div>
 </template>
@@ -49,6 +49,9 @@ export default {
     // 显示头部和底部
     toggleTitleAndMenu () {
       this.isShow = !this.isShow
+      setTimeout(function () {
+        this.$refs.ebookFooter.isShowFontSize = false
+      }.bind(this), 400)
     },
     // 电子书初始化
     initEpub () {
