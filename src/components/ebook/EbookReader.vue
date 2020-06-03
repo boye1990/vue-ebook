@@ -185,7 +185,7 @@ export default {
       // 添加主题
       this.registerThemes()
       // 选择已有主题
-      this.selectThemes('eye')
+      this.selectThemes('default')
       // 监听touchstart 和 touchend 事件。
       this.rendition.on('touchstart', event => {
         // 获取触摸起点x坐标，和时间
