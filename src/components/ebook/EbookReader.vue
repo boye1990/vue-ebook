@@ -9,6 +9,9 @@
               @setFontSize="setFontSize"
               :fontSizeList="fontSizeList"
               :defaultFontSize="defaultFontSize"
+              :themeList="themeList"
+              :defaultTheme="defaultTheme"
+              @selectThemes="selectThemes"
               ref="ebookFooter"
               v-show="isShow">
             </ebook-footer>
@@ -44,37 +47,41 @@ export default {
       themeList: [
         {
           name: 'default', // 主题名称
+          title: '默认',
           style: {
             body: {
               color: '#000', // 主题字体颜色
-              background: '#fff' // 主题背景颜色
+              background: '#7d8188' // 主题背景颜色
+            }
+          }
+        },
+        {
+          name: 'elegant', // 主题名称
+          title: '雅致',
+          style: {
+            body: {
+              color: '#000', // 主题字体颜色
+              background: 'rgb(198, 194, 182)' // 主题背景颜色
             }
           }
         },
         {
           name: 'eye', // 主题名称
+          title: '护眼',
           style: {
             body: {
               color: '#000', // 主题字体颜色
-              background: '#ceeaba' // 主题背景颜色
+              background: 'rgb(169, 193, 169)' // 主题背景颜色
             }
           }
         },
         {
           name: 'night', // 主题名称
+          title: '夜间',
           style: {
             body: {
               color: '#fff', // 主题字体颜色
               background: '#000' // 主题背景颜色
-            }
-          }
-        },
-        {
-          name: 'gold', // 主题名称
-          style: {
-            body: {
-              color: '#000', // 主题字体颜色
-              background: '#fff' // 主题背景颜色
             }
           }
         }
@@ -106,6 +113,15 @@ export default {
       })
     },
     /**
+     * 设置主题
+     * @param String 主题名称
+     */
+    selectThemes (themeName) {
+      console.log(themeName)
+      this.defaultTheme = themeName
+      this.themes.select(themeName)
+    },
+    /**
      * 调用epub对象的翻页方法(下一页)
      */
     prevPage () {
@@ -135,6 +151,7 @@ export default {
       this.isShow = !this.isShow
       setTimeout(function () {
         this.$refs.ebookFooter.isShowFontSize = false
+        this.$refs.ebookFooter.setNum = -1
       }.bind(this), 400)
     },
     /**
@@ -168,28 +185,31 @@ export default {
       // 添加主题
       this.registerThemes()
       // 选择已有主题
-      this.themes.select('eye')
-      // // 监听touchstart 和 touchend 事件。
-      // this.rendition.on('touchstart', event => {
-      //   // 获取触摸起点x坐标，和时间
-      //   this.touchstartX = event.changedTouches[0].clientX
-      //   this.touchstartTime = event.timeStamp
-      // })
-      // this.rendition.on('touchend', event => {
-      //   // 获取触摸终点x坐标，和时间
-      //   const offsetX = event.changedTouches[0].clientX - this.touchstartX
-      //   const time = event.changedTouches[0].clientX - this.touchstartTime
-      //   if (offsetX > 40 && time < 500) {
-      //     // this.prevPage()
-      //   } else if (offsetX < -40 && time < 500) {
-      //     // this.nextPage()
-      //   } else {
-      //     this.toggleTitleAndMenu()
-      //     console.log(offsetX, time)
-      //   }
-      //   // event.preventDefault()
-      //   event.stopPropagation()
-      // })
+      this.selectThemes('eye')
+      // 监听touchstart 和 touchend 事件。
+      this.rendition.on('touchstart', event => {
+        // 获取触摸起点x坐标，和时间
+        // this.touchstartX = event.changedTouches[0].clientX
+        this.touchstartTime = event.timeStamp
+      })
+      this.rendition.on('touchend', event => {
+        // 获取触摸终点x坐标，和时间
+        // const offsetX = event.changedTouches[0].clientX - this.touchstartX
+        const time = event.timeStamp - this.touchstartTime
+        if (time > 100) {
+          if (this.isShow) this.toggleTitleAndMenu()
+        }
+        // if (offsetX > 40 && time < 500) {
+        //   // this.prevPage()
+        // } else if (offsetX < -40 && time < 500) {
+        //   // this.nextPage()
+        // } else {
+        //   this.toggleTitleAndMenu()
+        //   console.log(offsetX, time)
+        // }
+        // event.preventDefault()
+        event.stopPropagation()
+      })
     }
   }
 
