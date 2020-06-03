@@ -8,7 +8,7 @@
                       <div class="select-wrapper" @click="setFontSize(index)" v-for="(item, index) in fontSizeList" :key="item.fontSize">
                         <div class="line"></div>
                         <div class="point-wrapper">
-                          <div class="point" v-show="fontSize === index">
+                          <div class="point" v-show="defaultFontSize === item.fontSize">
                             <div class="small-point"></div>
                           </div>
                         </div>
@@ -40,14 +40,28 @@ export default {
     fontSizeList: {
       type: Array,
       default: () => []
+    },
+    defaultFontSize: {
+      type: Number,
+      default: 16
     }
   },
+  created () {
+    console.log(this.defaultFontSize)
+  },
   methods: {
+    /**
+     * 显示字号字体设置栏
+     */
     showFontSize () {
       this.isShowFontSize = true
     },
+    /**
+     * 触发父级方法修改epub字号
+     * @param Number 选中字号的下标
+     */
     setFontSize (index) {
-      this.fontSize = index
+      this.$emit('setFontSize', index)
     }
   }
 }

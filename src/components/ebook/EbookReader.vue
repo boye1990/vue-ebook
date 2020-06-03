@@ -5,7 +5,13 @@
         </transition>
         <div id="read"></div>
         <transition name="fade-up">
-            <ebook-footer :fontSizeList="fontSizeList" ref="ebookFooter" v-show="isShow"></ebook-footer>
+            <ebook-footer
+              @setFontSize="setFontSize"
+              :fontSizeList="fontSizeList"
+              :defaultFontSize="defaultFontSize"
+              ref="ebookFooter"
+              v-show="isShow">
+            </ebook-footer>
         </transition>
     </div>
 </template>
@@ -25,14 +31,15 @@ export default {
       // 是否显示头部和菜单栏
       isShow: false,
       fontSizeList: [
+        { fontSize: 12 },
+        { fontSize: 14 },
         { fontSize: 16 },
         { fontSize: 18 },
         { fontSize: 20 },
         { fontSize: 22 },
-        { fontSize: 24 },
-        { fontSize: 26 },
-        { fontSize: 28 }
-      ]
+        { fontSize: 24 }
+      ],
+      defaultFontSize: 16
     }
   },
   computed: {
@@ -47,22 +54,41 @@ export default {
     })
   },
   methods: {
-    // 去下一页的方法
+    /**
+     * 调用epub对象的翻页方法(下一页)
+     */
     prevPage () {
       if (this.rendition) this.rendition.prev()
     },
-    // 返回上一页的方法
+    /**
+     * 调用epub对象的翻页方法(上一页)
+     */
     nextPage () {
       if (this.rendition) this.rendition.next()
     },
-    // 显示头部和底部
+    /**
+     * 设置字号
+     * @param Number 选中字体列表的元素下标
+     */
+    setFontSize (fontSize) {
+      this.defaultFontSize = this.fontSizeList[fontSize].fontSize
+      console.log(this.defaultFontSize)
+      if (this.themes) {
+        this.themes.fontSize(this.defaultFontSize + 'px')
+      }
+    },
+    /**
+     * 显示or隐藏头部和底部栏
+     */
     toggleTitleAndMenu () {
       this.isShow = !this.isShow
       setTimeout(function () {
         this.$refs.ebookFooter.isShowFontSize = false
       }.bind(this), 400)
     },
-    // 电子书初始化
+    /**
+     * 使用 epubjs 初始化电子书
+     */
     initEpub () {
       // 实例epub，传入获取的资源链接
       this.book = new Epub(this.fileName)
@@ -84,6 +110,10 @@ export default {
         // event.preventDefault()
         event.stopPropagation()
       })
+      // 保存epubjs字号变量到本地
+      this.themes = this.rendition.themes
+      // 设置默认字号
+      this.themes.fontSize(this.defaultFontSize + 'px')
       // // 监听touchstart 和 touchend 事件。
       // this.rendition.on('touchstart', event => {
       //   // 获取触摸起点x坐标，和时间
