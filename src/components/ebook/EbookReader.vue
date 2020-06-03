@@ -12,6 +12,8 @@
               :themeList="themeList"
               :defaultTheme="defaultTheme"
               @selectThemes="selectThemes"
+              @onProgressChange="onProgressChange"
+              :bookAvailable="bookAvailable"
               ref="ebookFooter"
               v-show="isShow">
             </ebook-footer>
@@ -31,6 +33,8 @@ export default {
   },
   data () {
     return {
+      // 电子书加载状态
+      bookAvailable: false,
       // 是否显示头部和菜单栏
       isShow: false,
       // 字号设置列表
@@ -105,6 +109,15 @@ export default {
   },
   methods: {
     /**
+     * 根据设置进度条，跳转页面内容cfiFromPercentage
+     * @param String progress 进度条数值
+     */
+    onProgressChange (progress) {
+      const perecentage = progress / 100
+      const location = perecentage > 0 ? this.locations.cfiFromPercentage(perecentage) : 0
+      this.rendition.display(location)
+    },
+    /**
      * 为epub实例注册主题
      */
     registerThemes () {
@@ -169,9 +182,15 @@ export default {
         manager: 'continuous', // 滑屏翻页动画
         methods: 'default' // 微信兼容性配置
       })
+      // ready 是equbjs的钩子函数，加载完毕的时候触发
       this.book.ready.then(() => {
         this.rendition.display()
-        this.bookReady = true // 滑屏翻页动画
+        // 通过 locations 对象的 generate 方法，生成 location 数组用来 设置进度
+        return this.book.locations.generate()
+      }).then(result => {
+        console.log(this.book.locations)
+        this.bookAvailable = true
+        this.locations = this.book.locations
       })
       this.rendition.on('click', event => {
         this.toggleTitleAndMenu()
