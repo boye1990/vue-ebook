@@ -30,6 +30,7 @@ export default {
     return {
       // 是否显示头部和菜单栏
       isShow: false,
+      // 字号设置列表
       fontSizeList: [
         { fontSize: 12 },
         { fontSize: 14 },
@@ -39,7 +40,49 @@ export default {
         { fontSize: 22 },
         { fontSize: 24 }
       ],
-      defaultFontSize: 16
+      // 主题设置列表
+      themeList: [
+        {
+          name: 'default', // 主题名称
+          style: {
+            body: {
+              color: '#000', // 主题字体颜色
+              background: '#fff' // 主题背景颜色
+            }
+          }
+        },
+        {
+          name: 'eye', // 主题名称
+          style: {
+            body: {
+              color: '#000', // 主题字体颜色
+              background: '#ceeaba' // 主题背景颜色
+            }
+          }
+        },
+        {
+          name: 'night', // 主题名称
+          style: {
+            body: {
+              color: '#fff', // 主题字体颜色
+              background: '#000' // 主题背景颜色
+            }
+          }
+        },
+        {
+          name: 'gold', // 主题名称
+          style: {
+            body: {
+              color: '#000', // 主题字体颜色
+              background: '#fff' // 主题背景颜色
+            }
+          }
+        }
+      ],
+      // 默认字号
+      defaultFontSize: 16,
+      // 默认主题
+      defaultTheme: 'default'
     }
   },
   computed: {
@@ -54,6 +97,14 @@ export default {
     })
   },
   methods: {
+    /**
+     * 为epub实例注册主题
+     */
+    registerThemes () {
+      this.themeList.forEach(item => {
+        this.themes.register(item.name, item.style)
+      })
+    },
     /**
      * 调用epub对象的翻页方法(下一页)
      */
@@ -114,6 +165,10 @@ export default {
       this.themes = this.rendition.themes
       // 设置默认字号
       this.themes.fontSize(this.defaultFontSize + 'px')
+      // 添加主题
+      this.registerThemes()
+      // 选择已有主题
+      this.themes.select('eye')
       // // 监听touchstart 和 touchend 事件。
       // this.rendition.on('touchstart', event => {
       //   // 获取触摸起点x坐标，和时间
