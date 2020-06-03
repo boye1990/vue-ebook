@@ -196,13 +196,14 @@ export default {
             // 覆盖默认样式
             -webkit-appearance: none;
             height: px2rem(2);
-            // 让滑块能有2种不同的背景色
+            // 让滑块轨道能有2种不同的背景色
             background: -webkit-linear-gradient(#999, #999) no-repeat, #ddd;
             background-size: 0 100%;
             &:focus {
               outline: none;
             }
-            &:-webkit-slider-thumb {
+            // 滑块样式
+            &::-webkit-slider-thumb {
               -webkit-appearance: none;
               height: px2rem(20);
               width: px2rem(20);
