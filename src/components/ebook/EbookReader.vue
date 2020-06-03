@@ -5,7 +5,7 @@
         </transition>
         <div id="read"></div>
         <transition name="fade-up">
-            <ebook-footer ref="ebookFooter" v-show="isShow"></ebook-footer>
+            <ebook-footer :fontSizeList="fontSizeList" ref="ebookFooter" v-show="isShow"></ebook-footer>
         </transition>
     </div>
 </template>
@@ -23,7 +23,16 @@ export default {
   data () {
     return {
       // 是否显示头部和菜单栏
-      isShow: false
+      isShow: false,
+      fontSizeList: [
+        { fontSize: 16 },
+        { fontSize: 18 },
+        { fontSize: 20 },
+        { fontSize: 22 },
+        { fontSize: 24 },
+        { fontSize: 26 },
+        { fontSize: 28 }
+      ]
     }
   },
   computed: {
