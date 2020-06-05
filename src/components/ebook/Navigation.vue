@@ -60,6 +60,8 @@ export default {
 @import '../../assets/styles/global.scss';
 .ebook-navigation {
     position: fixed;
+    display: flex;
+    flex-direction: column;
     top: 0;
     left: 0;
     width: 85%;
@@ -113,7 +115,7 @@ export default {
         border-bottom: 1px solid rgb(184, 185, 187);
     }
     &-content{
-        padding: 0 px2rem(15) px2rem(40) px2rem(15);
+        padding: 0 px2rem(15) px2rem(45) px2rem(15);
         width: 100%;
         box-sizing: border-box;
         position: relative;
@@ -139,7 +141,7 @@ export default {
     }
     &-bottom {
         @include center;
-        height: px2rem(45);
+        height: px2rem(40);
         position: absolute;
         width: 100%;
         bottom: 0;
