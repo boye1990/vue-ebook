@@ -15,7 +15,6 @@
               @selectThemes="selectThemes"
               @onProgressChange="onProgressChange"
               :bookAvailable="bookAvailable"
-              @navigation="navigation"
               @jumpTo="jumpTo"
               ref="ebookFooter"
               v-show="isShow">
@@ -200,6 +199,7 @@ export default {
         this.rendition.display()
         // navigation 为目录
         this.navigation = this.book.navigation
+        this.$refs.ebookFooter.navigation = this.navigation.toc
         console.log(this.navigation)
         // 通过 locations 对象的 generate 方法，生成 location 数组用来 设置进度
         return this.book.locations.generate()

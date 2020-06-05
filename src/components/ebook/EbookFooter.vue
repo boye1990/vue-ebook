@@ -52,7 +52,7 @@
               </div>
             </div>
         </transition>
-        <navigation v-show="setNum === 3"></navigation>
+        <navigation :navigation="navigation" @jumpTo="jumpTo" v-show="setNum === 3"></navigation>
         <div class="ebook-footer-memu" :style="isShowFontSize ? 'boxShadow: none' : ''">
             <span class="icon-menu" @click="showSettingsBar(3)"></span>
             <span class="icon-progress" @click="showSettingsBar(2)"></span>
@@ -75,7 +75,8 @@ export default {
       isShowFontSize: false,
       fontSize: 0,
       setNum: -1,
-      progress: 0
+      progress: 0,
+      navigation: []
     }
   },
   props: {
@@ -100,6 +101,15 @@ export default {
     defaultTheme: String
   },
   methods: {
+    /**
+     * 去到指定章节
+     * @param String href 章节路径
+     */
+    jumpTo (href) {
+      console.log(href, 2)
+      this.$emit('jumpTo', href)
+      this.closeModal()
+    },
     /**
      * 关闭modal，目录
      */

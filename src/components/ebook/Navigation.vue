@@ -11,11 +11,12 @@
             <div class="ebook-navigation-bookContent"></div>
             <div class="ebook-navigation-content">
                 <div
-                    v-for="(item, index) in navigtionList"
+                    v-for="(item, index) in navigation"
                     :key="index"
                     class="navItem"
+                    @click="jumpTo(item.href)"
                 >
-                    <div>{{item}}</div><div>{{index+1}}</div>
+                    <div class="label">{{item.label}}</div><div class="page">{{index+1}}</div>
                 </div>
             </div>
             <div class="ebook-navigation-bottom">
@@ -29,11 +30,22 @@
 <script>
 export default {
   props: {
-    navigtionList: {
+    navigation: {
       type: Array,
-      default: () => [1]
+      default: () => []
+    }
+  },
+  methods: {
+    /**
+     * 去到指定章节
+     * @param String href 章节路径
+     */
+    jumpTo (href) {
+      console.log(href, 1)
+      this.$emit('jumpTo', href)
     }
   }
+
 }
 </script>
 
@@ -97,21 +109,35 @@ export default {
         padding: 0 px2rem(15) px2rem(40) px2rem(15);
         width: 100%;
         box-sizing: border-box;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: scroll;
         .navItem{
             height: px2rem(16);
             @include center;
             font-size: px2rem(14);
             padding: px2rem(20) 0;
             border-bottom: 1px solid #b8b9bb;
+            .label {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                flex: 1;
+            }
+            .page {
+                min-width: px2rem(50);
+                text-align: right;
+            }
         }
     }
     &-bottom {
         @include center;
-        height: px2rem(40);
+        height: px2rem(45);
         position: absolute;
         width: 100%;
         bottom: 0;
         left: 0;
+        background-color: #fff;
         box-sizing: border-box;
         border-top: 1px solid rgb(184, 185, 187);
         div{
