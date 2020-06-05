@@ -9,11 +9,14 @@
               @setFontSize="setFontSize"
               :fontSizeList="fontSizeList"
               :defaultFontSize="defaultFontSize"
+              @toggleTitleAndMenu="toggleTitleAndMenu"
               :themeList="themeList"
               :defaultTheme="defaultTheme"
               @selectThemes="selectThemes"
               @onProgressChange="onProgressChange"
               :bookAvailable="bookAvailable"
+              @navigation="navigation"
+              @jumpTo="jumpTo"
               ref="ebookFooter"
               v-show="isShow">
             </ebook-footer>
@@ -33,6 +36,8 @@ export default {
   },
   data () {
     return {
+      // 目录数据
+      navigation: '',
       // 电子书加载状态
       bookAvailable: false,
       // 是否显示头部和菜单栏
@@ -108,6 +113,14 @@ export default {
     })
   },
   methods: {
+    /**
+     * 跳转章节内容
+     * @param String href 章节地址
+     */
+    jumpTo (href) {
+      this.rendition.display(href)
+      this.toggleTitleAndMenu()
+    },
     /**
      * 根据设置进度条，跳转页面内容cfiFromPercentage
      * @param String progress 进度条数值
@@ -185,6 +198,9 @@ export default {
       // ready 是equbjs的钩子函数，加载完毕的时候触发
       this.book.ready.then(() => {
         this.rendition.display()
+        // navigation 为目录
+        this.navigation = this.book.navigation
+        console.log(this.navigation)
         // 通过 locations 对象的 generate 方法，生成 location 数组用来 设置进度
         return this.book.locations.generate()
       }).then(result => {
@@ -194,8 +210,6 @@ export default {
       })
       this.rendition.on('click', event => {
         this.toggleTitleAndMenu()
-        // event.preventDefault()
-        event.stopPropagation()
       })
       // 保存epubjs字号变量到本地
       this.themes = this.rendition.themes

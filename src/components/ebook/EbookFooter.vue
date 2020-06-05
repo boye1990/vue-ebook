@@ -52,16 +52,24 @@
               </div>
             </div>
         </transition>
+        <navigation v-show="setNum === 3"></navigation>
         <div class="ebook-footer-memu" :style="isShowFontSize ? 'boxShadow: none' : ''">
-            <span class="icon-menu"></span>
+            <span class="icon-menu" @click="showSettingsBar(3)"></span>
             <span class="icon-progress" @click="showSettingsBar(2)"></span>
             <span class="icon-bright" @click="showSettingsBar(1)"></span>
             <span class="icon-A" @click="showSettingsBar(0)"></span>
         </div>
+        <transition name="fade-modal">
+          <div class="ebook-modal" @click="closeModal" v-show="setNum === 3"></div>
+        </transition>
     </div>
 </template>
 <script>
+import Navigation from './Navigation'
 export default {
+  components: {
+    Navigation
+  },
   data () {
     return {
       isShowFontSize: false,
@@ -92,6 +100,15 @@ export default {
     defaultTheme: String
   },
   methods: {
+    /**
+     * 关闭modal，目录
+     */
+    closeModal () {
+      this.setNum = -1
+      setTimeout(() => {
+        this.$emit('toggleTitleAndMenu')
+      }, 400)
+    },
     /**
      * 松开滑块触发的方法
      */
@@ -337,6 +354,25 @@ export default {
             font-size: px2rem(25)
         }
     }
-}
+    /** 蒙层样式 */
+    .ebook-modal {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 101;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, .51)
+    }
+    .fade-modal-enter, .fade-modal-leave-to{
+        opacity: 0;
+    }
+    .fade-modal-leave, .fade-modal-enter-to{
+        opacity: 1;
+    }
+    .fade-modal-enter-active, .fade-modal-leave-active{
+      transition: all .3s linear;
+    }
+  }
 
 </style>
