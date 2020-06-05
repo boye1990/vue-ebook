@@ -15,8 +15,15 @@
                     :key="index"
                     class="navItem"
                     @click="jumpTo(item.href)"
+                    v-show="navigation.length > 0"
                 >
                     <div class="label">{{item.label}}</div><div class="page">{{index+1}}</div>
+                </div>
+                <div
+                    class="navItem"
+                    v-show="navigation.length === 0"
+                >
+                    <div class="label">加载中...</div>
                 </div>
             </div>
             <div class="ebook-navigation-bottom">

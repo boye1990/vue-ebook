@@ -118,7 +118,6 @@ export default {
      */
     jumpTo (href) {
       this.rendition.display(href)
-      this.toggleTitleAndMenu()
     },
     /**
      * 根据设置进度条，跳转页面内容cfiFromPercentage
