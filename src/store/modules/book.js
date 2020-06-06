@@ -68,7 +68,6 @@ const book = {
       state.isShow = !state.isShow
     },
     SET_BOOKAVAILABLE: (state, bookAvailable) => {
-      console.log(bookAvailable, 'bookAvailable')
       state.bookAvailable = bookAvailable
     }
   }
