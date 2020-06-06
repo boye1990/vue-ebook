@@ -7,12 +7,6 @@ const book = {
       console.log(fileName)
       state.fileName = fileName
     }
-  },
-  actions: {
-    setFileName: ({ commit }, fileName) => {
-      console.log('actions')
-      return commit('SET_FILENAME', fileName)
-    }
   }
 }
 

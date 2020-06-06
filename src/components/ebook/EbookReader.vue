@@ -23,7 +23,7 @@
     </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { ebookMixin } from '../../utils/mixin'
 import EbookHeader from './EbookHeader'
 import EbookFooter from './EbookFooter'
 import Epub from 'epubjs'
@@ -33,6 +33,7 @@ export default {
     EbookHeader,
     EbookFooter
   },
+  mixins: [ebookMixin],
   data () {
     return {
       // 目录数据
@@ -100,14 +101,11 @@ export default {
       defaultTheme: 'default'
     }
   },
-  computed: {
-    ...mapGetters(['fileName'])
-  },
   mounted () {
     // 根据动态路由的书名凭借nginx的域名，获得资源链接
     const baseUrl = `http://localhost:8081/epub/${this.$route.params.fileName.split('|').join('/')}.epub`
     // 将电子书的资源地址保存在vuex
-    this.$store.dispatch('setFileName', baseUrl).then(() => {
+    this.setFileName(baseUrl).then(() => {
       this.initEpub()
     })
   },
