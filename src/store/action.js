@@ -7,6 +7,9 @@ const actions = {
   },
   setDefaultTheme: ({ commit }, theme) => {
     return commit('SET_THEME', theme)
+  },
+  setBookAvailable: ({ commit }, bookAvailable) => {
+    return commit('SET_BOOKAVAILABLE', bookAvailable)
   }
 }
 export default actions

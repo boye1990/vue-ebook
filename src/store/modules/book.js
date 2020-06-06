@@ -5,6 +5,8 @@ const book = {
     defaultFontSize: 16,
     // 默认主题
     defaultTheme: 'default',
+    // 电子书加载状态
+    bookAvailable: false,
     // 主题设置列表
     themeList: [
       {
@@ -59,6 +61,10 @@ const book = {
     },
     SET_THEME: (state, theme) => {
       state.defaultTheme = theme
+    },
+    SET_BOOKAVAILABLE: (state, bookAvailable) => {
+      console.log(bookAvailable, 'bookAvailable')
+      state.bookAvailable = bookAvailable
     }
   }
 }

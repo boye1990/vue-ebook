@@ -10,7 +10,6 @@
               @toggleTitleAndMenu="toggleTitleAndMenu"
               @selectThemes="selectThemes"
               @onProgressChange="onProgressChange"
-              :bookAvailable="bookAvailable"
               @jumpTo="jumpTo"
               ref="ebookFooter"
               v-show="isShow">
@@ -34,8 +33,6 @@ export default {
     return {
       // 目录数据
       navigation: '',
-      // 电子书加载状态
-      bookAvailable: false,
       // 是否显示头部和菜单栏
       isShow: false
     }
@@ -136,8 +133,7 @@ export default {
         // 通过 locations 对象的 generate 方法，生成 location 数组用来 设置进度
         return this.book.locations.generate()
       }).then(result => {
-        console.log(this.book.locations)
-        this.bookAvailable = true
+        this.setBookAvailable(true)
         this.locations = this.book.locations
       })
       this.rendition.on('click', event => {
