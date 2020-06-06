@@ -9,12 +9,12 @@
             </setSize>
         </transition>
         <transition name="fade-up">
-            <div class="ebook-footer-setTheme" v-if="setNum === 1">
-              <div class="themeItem" @click="selectThemes(item)" v-for="item in themeList" :key="item.name">
-                <div class="themeItem-bgc" :style="defaultTheme === item.name ? `border: 2px solid #5e6369; background:${item.style.body.background}` : `background:${item.style.body.background}`"></div>
-                <div :class="defaultTheme === item.name ? 'themeItem-name fontStyle' : 'themeItem-name'">{{item.title}}</div>
-              </div>
-            </div>
+            <setTheme
+                class="publicStyle"
+                v-if="setNum === 1"
+                @selectThemes='selectThemes'
+            >
+            </setTheme>
         </transition>
         <transition name="fade-up">
             <div class="ebook-footer-speed" v-if="setNum === 2">
@@ -55,10 +55,12 @@
 <script>
 import Navigation from './navigation'
 import SetSize from './setFontSize'
+import SetTheme from './setTheme'
 export default {
   components: {
     Navigation,
-    SetSize
+    SetSize,
+    SetTheme
   },
   data () {
     return {
@@ -75,15 +77,11 @@ export default {
       type: Boolean,
       default: false
     },
-    // 默认字号
-    defaultFontSize: Number,
     // 主题列表
     themeList: {
       type: Array,
       default: () => []
-    },
-    // 默认主题
-    defaultTheme: String
+    }
   },
   methods: {
     /**
@@ -140,6 +138,7 @@ export default {
      * @param String 选中的主题
      */
     selectThemes (themesName) {
+      console.log(themesName)
       this.$emit('selectThemes', themesName.name)
     },
     /**
@@ -225,30 +224,6 @@ export default {
           color: #ddd;
         }
       }
-    }
-    .ebook-footer-setTheme {
-        @include center;
-        .themeItem{
-          flex: 1;
-          padding: px2rem(5);
-          &-bgc {
-            width: 100%;
-            height: px2rem(60);
-            box-sizing: border-box;
-          }
-          &-name {
-            width: 100%;
-            height: px2rem(20);
-            color: #4c5059;
-            text-align: center;
-            line-height: px2rem(20);
-            font-size: px2rem(14)
-          }
-          .fontStyle {
-             color: #000;
-             font-weight: 900;
-          }
-        }
     }
     .ebook-footer-memu {
         background-color: #ffffff;

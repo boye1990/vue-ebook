@@ -4,8 +4,10 @@ export const ebookMixin = {
   computed: {
     ...mapGetters([
       'fileName',
-      'defaultFontSize'
+      'defaultFontSize',
+      'themeList',
+      'defaultTheme'
     ])
   },
-  methods: { ...mapActions(['setFileName', 'setDefaultFontSize']) }
+  methods: { ...mapActions(['setFileName', 'setDefaultFontSize', 'setDefaultTheme']) }
 }
