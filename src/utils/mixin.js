@@ -3,8 +3,9 @@ import { mapGetters, mapActions } from 'vuex'
 export const ebookMixin = {
   computed: {
     ...mapGetters([
-      'fileName'
+      'fileName',
+      'defaultFontSize'
     ])
   },
-  methods: { ...mapActions(['setFileName']) }
+  methods: { ...mapActions(['setFileName', 'setDefaultFontSize']) }
 }

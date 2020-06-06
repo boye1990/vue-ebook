@@ -1,24 +1,11 @@
 <template>
     <div class="ebook-footer-box">
         <transition name="fade-up">
-            <div class="ebook-footer-fontSize" v-if="setNum === 0">
-                <div class="setSizeBox">
-                    <div class="min-size" :style="`fontSize: ${fontSizeList[0].fontSize}px`">A</div>
-                    <div class="sizeList">
-                      <div class="select-wrapper" @click="setFontSize(index)" v-for="(item, index) in fontSizeList" :key="item.fontSize">
-                        <div class="line"></div>
-                        <div class="point-wrapper">
-                          <div class="point" v-show="defaultFontSize === item.fontSize">
-                            <div class="small-point"></div>
-                          </div>
-                        </div>
-                        <div class="line"></div>
-                      </div>
-                    </div>
-                    <div class="max-size" :style="`fontSize: ${fontSizeList[fontSizeList.length-1].fontSize}px`">A</div>
-                </div>
-                <div class="setFamilyBox"></div>
-            </div>
+            <setSize
+                v-if="setNum === 0"
+                @setFontSize='setFontSize'
+            >
+            </setSize>
         </transition>
         <transition name="fade-up">
             <div class="ebook-footer-setTheme" v-if="setNum === 1">
@@ -66,30 +53,19 @@
 </template>
 <script>
 import Navigation from './Navigation'
-import { ebookMixin } from '../../utils/mixin'
+import SetSize from './setFontSize'
 export default {
   components: {
-    Navigation
+    Navigation,
+    SetSize
   },
-  // 混入 mixins 获取 vuex中的数据
-  mixins: [ebookMixin],
   data () {
     return {
       isShowFontSize: false,
       fontSize: 0,
       setNum: -1,
       progress: 0,
-      navigation: [],
-      // 字号设置列表
-      fontSizeList: [
-        { fontSize: 12 },
-        { fontSize: 14 },
-        { fontSize: 16 },
-        { fontSize: 18 },
-        { fontSize: 20 },
-        { fontSize: 22 },
-        { fontSize: 24 }
-      ]
+      navigation: []
     }
   },
   props: {
@@ -98,6 +74,8 @@ export default {
       type: Boolean,
       default: false
     },
+    // 默认字号
+    defaultFontSize: Number,
     // 主题列表
     themeList: {
       type: Array,
@@ -168,16 +146,14 @@ export default {
      * @param Number 选中字号的下标
      */
     setFontSize (index) {
-      // 调用mixins里面的方法修改vuex中的默认字号
-      this.setDefaultFontSize(this.fontSizeList[index].fontSize)
-      this.$emit('setFontSize')
+      this.$emit('setFontSize', index)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-@import "../../assets/styles/global.scss";
-@import "../../assets/styles/icon.css";
+@import "../../../assets/styles/global.scss";
+@import "../../../assets/styles/icon.css";
 .ebook-footer-box{
     position: absolute;
     width: 100%;

@@ -7,8 +7,6 @@
         <transition name="fade-up">
             <ebook-footer
               @setFontSize="setFontSize"
-              :fontSizeList="fontSizeList"
-              :defaultFontSize="defaultFontSize"
               @toggleTitleAndMenu="toggleTitleAndMenu"
               :themeList="themeList"
               :defaultTheme="defaultTheme"
@@ -42,16 +40,6 @@ export default {
       bookAvailable: false,
       // 是否显示头部和菜单栏
       isShow: false,
-      // 字号设置列表
-      fontSizeList: [
-        { fontSize: 12 },
-        { fontSize: 14 },
-        { fontSize: 16 },
-        { fontSize: 18 },
-        { fontSize: 20 },
-        { fontSize: 22 },
-        { fontSize: 24 }
-      ],
       // 主题设置列表
       themeList: [
         {
@@ -95,8 +83,6 @@ export default {
           }
         }
       ],
-      // 默认字号
-      defaultFontSize: 16,
       // 默认主题
       defaultTheme: 'default'
     }
@@ -156,12 +142,9 @@ export default {
       if (this.rendition) this.rendition.next()
     },
     /**
-     * 设置字号
-     * @param Number 选中字体列表的元素下标
+     * 设置epub电子书字号
      */
-    setFontSize (fontSize) {
-      this.defaultFontSize = this.fontSizeList[fontSize].fontSize
-      console.log(this.defaultFontSize)
+    setFontSize () {
       if (this.themes) {
         this.themes.fontSize(this.defaultFontSize + 'px')
       }

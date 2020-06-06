@@ -10,3 +10,17 @@ $ratio: 375 / 10;
     justify-content: center;
     align-items: center;
 }
+@mixin fadeUpTranstion {
+    // -enter-to 显示完成后的样式 -leave 隐藏之前的样式
+    .fade-up-enter-to, .fade-up-leave  {
+      transition: translate3d(0, 0, 0);
+    }
+    // -enter-active 整个显示过程的动画状态  -leave-active 整个隐藏过程的动画状态
+    .fade-up-enter-active, .fade-up-leave-active {
+      transition: all .3s linear;
+    }
+    // -enter 显示之前的样式 -leave-to 隐藏之后的样式
+    .fade-up-enter, .fade-up-leave-to {
+      transform: translate3d(0, 100%, 0);
+    }
+}
