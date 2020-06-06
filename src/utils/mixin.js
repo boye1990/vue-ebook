@@ -7,8 +7,17 @@ export const ebookMixin = {
       'defaultFontSize',
       'themeList',
       'defaultTheme',
-      'bookAvailable'
+      'bookAvailable',
+      'isShow'
     ])
   },
-  methods: { ...mapActions(['setFileName', 'setDefaultFontSize', 'setDefaultTheme', 'setBookAvailable']) }
+  methods: {
+    ...mapActions([
+      'setFileName',
+      'setDefaultFontSize',
+      'setDefaultTheme',
+      'setBookAvailable',
+      'setIsShow'
+    ])
+  }
 }

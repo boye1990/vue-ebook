@@ -10,6 +10,10 @@ const actions = {
   },
   setBookAvailable: ({ commit }, bookAvailable) => {
     return commit('SET_BOOKAVAILABLE', bookAvailable)
+  },
+  setIsShow: ({ commit }) => {
+    return commit('SET_ISSHOW')
   }
+
 }
 export default actions

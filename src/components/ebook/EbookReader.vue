@@ -20,7 +20,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import EbookHeader from './EbookHeader'
-import EbookFooter from './EbookFooter/index'
+import EbookFooter from './EbookFooterMenu/index'
 import Epub from 'epubjs'
 global.epub = Epub
 export default {
@@ -32,9 +32,7 @@ export default {
   data () {
     return {
       // 目录数据
-      navigation: '',
-      // 是否显示头部和菜单栏
-      isShow: false
+      navigation: ''
     }
   },
   mounted () {
@@ -102,7 +100,7 @@ export default {
      * 显示or隐藏头部和底部栏
      */
     toggleTitleAndMenu () {
-      this.isShow = !this.isShow
+      this.setIsShow()
       setTimeout(function () {
         this.$refs.ebookFooter.isShowFontSize = false
         this.$refs.ebookFooter.setNum = -1
@@ -160,15 +158,6 @@ export default {
         if (time > 100) {
           if (this.isShow) this.toggleTitleAndMenu()
         }
-        // if (offsetX > 40 && time < 500) {
-        //   // this.prevPage()
-        // } else if (offsetX < -40 && time < 500) {
-        //   // this.nextPage()
-        // } else {
-        //   this.toggleTitleAndMenu()
-        //   console.log(offsetX, time)
-        // }
-        // event.preventDefault()
         event.stopPropagation()
       })
     }

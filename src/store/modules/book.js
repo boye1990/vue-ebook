@@ -3,6 +3,8 @@ const book = {
     fileName: '',
     // 默认字号
     defaultFontSize: 16,
+    // 是否显示头部和菜单栏
+    isShow: false,
     // 默认主题
     defaultTheme: 'default',
     // 电子书加载状态
@@ -61,6 +63,9 @@ const book = {
     },
     SET_THEME: (state, theme) => {
       state.defaultTheme = theme
+    },
+    SET_ISSHOW: (state) => {
+      state.isShow = !state.isShow
     },
     SET_BOOKAVAILABLE: (state, bookAvailable) => {
       console.log(bookAvailable, 'bookAvailable')
