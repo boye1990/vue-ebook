@@ -23,7 +23,7 @@
 <script>
 import { ebookMixin } from '../../utils/mixin'
 import EbookHeader from './EbookHeader'
-import EbookFooter from './EbookFooter'
+import EbookFooter from './EbookFooter/index'
 import Epub from 'epubjs'
 global.epub = Epub
 export default {
