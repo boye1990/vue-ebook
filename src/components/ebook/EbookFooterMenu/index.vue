@@ -3,21 +3,21 @@
         <transition name="fade-up">
             <setSize
                 class="publicStyle"
-                v-if="setNum === 0"
+                v-show="setNum === 0"
             >
             </setSize>
         </transition>
         <transition name="fade-up">
             <setTheme
                 class="publicStyle"
-                v-if="setNum === 1"
+                v-show="setNum === 1"
             >
             </setTheme>
         </transition>
         <transition name="fade-up">
             <speed
                 class="publicStyle"
-                v-if="setNum === 2"
+                v-show="setNum === 2"
                 @onProgressChange='onProgressChange'
             ></speed>
         </transition>

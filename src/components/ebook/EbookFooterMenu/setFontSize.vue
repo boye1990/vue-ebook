@@ -16,7 +16,7 @@
             <div class="max-size" :style="`fontSize: ${fontSizeList[fontSizeList.length-1].fontSize}px`">A</div>
         </div>
         <div class="setFamilyBox">
-          <div  @click="isShowFamilyList">Default<span class="icon-forward"></span></div>
+          <div  @click="isShowFamilyList">{{defaultFamily}}<span class="icon-forward"></span></div>
           <transition name="family">
             <div class="familyList" v-show='showFamilyList'>
               <div class="title">
@@ -58,7 +58,8 @@ export default {
       ],
       fontFamilyList: FONT_FAMILY,
       selectFamilyIndex: 0,
-      showFamilyList: false
+      showFamilyList: false,
+      defaultFamily: 'Default'
     }
   },
   methods: {
@@ -80,6 +81,7 @@ export default {
      */
     selectFamily (index, familyName) {
       this.selectFamilyIndex = index
+      this.defaultFamily = familyName
     },
     /**
      * 关闭ro打开字体选择
