@@ -83,6 +83,14 @@ export default {
     selectFamily (index, familyName) {
       this.selectFamilyIndex = index
       this.defaultFamily = familyName
+      if (this.epubBook.rendition && this.epubBook.rendition.themes) {
+        if (familyName === 'Default') {
+          this.epubBook.rendition.themes.font('Times New Roman')
+        } else {
+          console.log('选择字体')
+          this.epubBook.rendition.themes.font(familyName)
+        }
+      }
     },
     /**
      * 关闭ro打开字体选择
