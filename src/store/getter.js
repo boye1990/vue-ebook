@@ -4,6 +4,7 @@ const book = {
   defaultTheme: state => state.book.defaultTheme,
   themeList: state => state.book.themeList,
   bookAvailable: state => state.book.bookAvailable,
-  isShow: state => state.book.isShow
+  isShow: state => state.book.isShow,
+  epubBook: state => state.book.epubBook
 }
 export default book

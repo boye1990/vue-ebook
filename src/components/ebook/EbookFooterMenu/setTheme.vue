@@ -13,8 +13,13 @@ export default {
   // 混入 mixins 获取 vuex中的数据 themeList defaultTheme
   mixins: [ebookMixin],
   methods: {
-    selectThemes (theme) {
-      this.$emit('selectThemes', theme)
+    /**
+     * 设置主题
+     * @param String 选中的主题
+     */
+    selectThemes (themesName) {
+      this.setDefaultTheme(themesName.name)
+      this.epubBook.rendition.themes.select(themesName.name)
     }
   }
 }

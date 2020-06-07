@@ -48,7 +48,6 @@ export default {
      * @param String href 章节路径
      */
     jumpTo (href) {
-      console.log(href, 1)
       this.$emit('jumpTo', href)
     }
   }

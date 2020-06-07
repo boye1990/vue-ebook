@@ -42,7 +42,9 @@ export default {
     setFontSize (fontSize) {
       // 调用mixins里面的方法修改vuex中的默认字号
       this.setDefaultFontSize(fontSize)
-      this.$emit('setFontSize')
+      if (this.epubBook.rendition && this.epubBook.rendition.themes) {
+        this.epubBook.rendition.themes.fontSize(fontSize + 'px')
+      }
     }
   }
 }

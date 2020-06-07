@@ -6,11 +6,8 @@
         <div id="read"></div>
         <transition name="fade-up">
             <ebook-footer
-              @setFontSize="setFontSize"
               @toggleTitleAndMenu="toggleTitleAndMenu"
-              @selectThemes="selectThemes"
               @onProgressChange="onProgressChange"
-              @jumpTo="jumpTo"
               ref="ebookFooter"
               v-show="isShow">
             </ebook-footer>
@@ -45,13 +42,6 @@ export default {
   },
   methods: {
     /**
-     * 跳转章节内容
-     * @param String href 章节地址
-     */
-    jumpTo (href) {
-      this.rendition.display(href)
-    },
-    /**
      * 根据设置进度条，跳转页面内容cfiFromPercentage
      * @param String progress 进度条数值
      */
@@ -69,14 +59,6 @@ export default {
       })
     },
     /**
-     * 设置主题
-     * @param String 主题名称
-     */
-    selectThemes (themeName) {
-      this.setDefaultTheme(themeName)
-      this.themes.select(themeName)
-    },
-    /**
      * 调用epub对象的翻页方法(下一页)
      */
     prevPage () {
@@ -87,14 +69,6 @@ export default {
      */
     nextPage () {
       if (this.rendition) this.rendition.next()
-    },
-    /**
-     * 设置epub电子书字号
-     */
-    setFontSize () {
-      if (this.themes) {
-        this.themes.fontSize(this.defaultFontSize + 'px')
-      }
     },
     /**
      * 显示or隐藏头部和底部栏
@@ -112,6 +86,8 @@ export default {
     initEpub () {
       // 实例epub，传入获取的资源链接
       this.book = new Epub(this.fileName)
+      // 将epub实例保存在vuex中
+      this.setEpubBook(this.book)
       // 将实例挂载在id为read的Dom上
       this.rendition = this.book.renderTo('read', {
         width: window.innerWidth, // 设置宽高为设备宽高
@@ -144,7 +120,7 @@ export default {
       // 添加主题
       this.registerThemes()
       // 选择已有主题
-      this.selectThemes('default')
+      this.themes.select('default')
       // 监听touchstart 和 touchend 事件。
       this.rendition.on('touchstart', event => {
         // 获取触摸起点x坐标，和时间

@@ -13,6 +13,9 @@ const actions = {
   },
   setIsShow: ({ commit }) => {
     return commit('SET_ISSHOW')
+  },
+  setEpubBook: ({ commit }, epubBook) => {
+    return commit('SET_EPUB_BOOK', epubBook)
   }
 
 }

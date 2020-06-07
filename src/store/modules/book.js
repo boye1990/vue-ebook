@@ -31,6 +31,9 @@ const book = {
     },
     SET_BOOKAVAILABLE: (state, bookAvailable) => {
       state.bookAvailable = bookAvailable
+    },
+    SET_EPUB_BOOK: (state, epubBook) => {
+      state.epubBook = epubBook
     }
   }
 }

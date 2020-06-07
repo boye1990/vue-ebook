@@ -8,7 +8,8 @@ export const ebookMixin = {
       'themeList',
       'defaultTheme',
       'bookAvailable',
-      'isShow'
+      'isShow',
+      'epubBook'
     ])
   },
   methods: {
@@ -17,7 +18,8 @@ export const ebookMixin = {
       'setDefaultFontSize',
       'setDefaultTheme',
       'setBookAvailable',
-      'setIsShow'
+      'setIsShow',
+      'setEpubBook'
     ])
   }
 }

@@ -4,7 +4,6 @@
             <setSize
                 class="publicStyle"
                 v-if="setNum === 0"
-                @setFontSize='setFontSize'
             >
             </setSize>
         </transition>
@@ -12,7 +11,6 @@
             <setTheme
                 class="publicStyle"
                 v-if="setNum === 1"
-                @selectThemes='selectThemes'
             >
             </setTheme>
         </transition>
@@ -36,11 +34,13 @@
     </div>
 </template>
 <script>
+import { ebookMixin } from '../../../utils/mixin'
 import Navigation from './navigation'
 import SetSize from './setFontSize'
 import SetTheme from './setTheme'
 import Speed from './speed'
 export default {
+  mixins: [ebookMixin],
   components: {
     Navigation,
     SetSize,
@@ -61,8 +61,7 @@ export default {
      * @param String href 章节路径
      */
     jumpTo (href) {
-      console.log(href, 2)
-      this.$emit('jumpTo', href)
+      this.epubBook.rendition.display(href)
       this.closeModal()
     },
     /**
@@ -95,20 +94,6 @@ export default {
       setTimeout(() => {
         this.setNum = setNum
       }, 400)
-    },
-    /**
-     * 设置主题
-     * @param String 选中的主题
-     */
-    selectThemes (themesName) {
-      console.log(themesName)
-      this.$emit('selectThemes', themesName.name)
-    },
-    /**
-     * 触发父级方法修改epub字号
-     */
-    setFontSize () {
-      this.$emit('setFontSize')
     }
   }
 }
