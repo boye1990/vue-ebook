@@ -41,3 +41,10 @@ export const THEME_LIST = [
     }
   }
 ]
+export const FONT_FAMILY = [
+  { font: 'Default' },
+  { font: 'Cabin' },
+  { font: 'Days one' },
+  { font: 'Montserrat' },
+  { font: 'Tangerine' }
+]
