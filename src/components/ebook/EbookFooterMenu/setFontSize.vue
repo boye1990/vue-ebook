@@ -16,9 +16,10 @@
             <div class="max-size" :style="`fontSize: ${fontSizeList[fontSizeList.length-1].fontSize}px`">A</div>
         </div>
         <div class="setFamilyBox">
-          <div  @click="isShowFamilyList">{{defaultFamily}}<span class="icon-forward"></span></div>
+          <div class="familyNameText"  @click="isShowFamilyList">{{defaultFamily}}<span class="icon-forward"></span></div>
           <transition name="family">
             <div class="familyList" v-show='showFamilyList'>
+              <div @click="isShowFamilyList" class="setFamilyBoxModal"></div>
               <div class="title">
                 <span class="hidTitle icon-down2" @click="isShowFamilyList"></span>
                 选择字体
@@ -99,7 +100,16 @@ export default {
 .ebook-footer-fontSize {
     .setFamilyBox{
       height: px2rem(30);
-      div {
+      .setFamilyBoxModal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: rgba(0, 0, 0, .51)
+      }
+      .familyNameText {
         @include center;
         font-size: px2rem(18)
       }
@@ -122,7 +132,7 @@ export default {
         width: 100%;
         left: 0;
         bottom: 0;
-        z-index: 103;
+        z-index: 104;
         .list {
           display: flex;
           flex-direction: column;
