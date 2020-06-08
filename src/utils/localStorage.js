@@ -20,6 +20,20 @@ export function removeLocalStorage (key) {
 export function clearLocalStorage () {
   return localStorage.clear()
 }
+/**
+ * 获取缓存的国际化语言
+ */
+export function getLocale () {
+  return getLocalStorage('locale')
+}
+
+/**
+ *
+ * @param {*} locale 设置默认的国际化语言
+ */
+export function saveLocale (locale) {
+  return setLocalStorage('locale', locale)
+}
 
 /**
  * 为一本书开辟一个缓存, 存储的时候是一个json，获取的时候回转化成对象

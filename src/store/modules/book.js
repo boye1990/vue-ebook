@@ -17,7 +17,6 @@ const book = {
   },
   mutations: {
     SET_FILENAME: (state, fileName) => {
-      console.log(fileName)
       state.fileName = fileName
     },
     SET_FONTSIZE: (state, defaultFontSize) => {

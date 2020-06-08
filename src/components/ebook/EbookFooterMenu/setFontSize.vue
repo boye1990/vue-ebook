@@ -22,7 +22,7 @@
               <div @click="isShowFamilyList" class="setFamilyBoxModal"></div>
               <div class="title">
                 <span class="hidTitle icon-down2" @click="isShowFamilyList"></span>
-                选择字体
+                {{$t('book.selectFont')}}
               </div>
               <div class="list">
                 <div class="item"

@@ -137,12 +137,7 @@ export default {
         event.stopPropagation()
       })
       this.rendition.hooks.content.register(contents => {
-        console.log('添加字体', process.env)
         Promise.all([
-          // contents.addStylesheet('http://localhost:8081/fonts/tangerine.css'),
-          // contents.addStylesheet('http://localhost:8081/fonts/cabin.css'),
-          // contents.addStylesheet('http://localhost:8081/fonts/daysOne.css'),
-          // contents.addStylesheet('http://localhost:8081/fonts/montserrat.css'),
           contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
           contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`),
           contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
