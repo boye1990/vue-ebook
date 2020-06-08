@@ -63,7 +63,27 @@ export default {
       defaultFamily: 'Default'
     }
   },
+  watch: {
+    epubBook () {
+      console.log('监听epubBook')
+      this.getLocalStorageSizeAndFamily()
+    }
+  },
   methods: {
+    /**
+     * 获取缓存字号，字体
+     */
+    getLocalStorageSizeAndFamily () {
+      const fontSize = Number(window.localStorage.getItem('fontSize'))
+      const selectFamilyIndex = Number(window.localStorage.getItem('selectFamilyIndex'))
+      const defaultFamily = window.localStorage.getItem('defaultFamily')
+      if (fontSize) {
+        this.setFontSize(fontSize)
+      }
+      if (selectFamilyIndex && defaultFamily) {
+        this.selectFamily(selectFamilyIndex, defaultFamily)
+      }
+    },
     /**
      * 选择字号
      * @param Number fontSize 选中的字号
@@ -72,6 +92,7 @@ export default {
       // 调用mixins里面的方法修改vuex中的默认字号
       this.setDefaultFontSize(fontSize)
       if (this.epubBook.rendition && this.epubBook.rendition.themes) {
+        window.localStorage.setItem('fontSize', fontSize)
         this.epubBook.rendition.themes.fontSize(fontSize + 'px')
       }
     },
@@ -84,10 +105,11 @@ export default {
       this.selectFamilyIndex = index
       this.defaultFamily = familyName
       if (this.epubBook.rendition && this.epubBook.rendition.themes) {
+        window.localStorage.setItem('selectFamilyIndex', index)
+        window.localStorage.setItem('defaultFamily', familyName)
         if (familyName === 'Default') {
           this.epubBook.rendition.themes.font('Times New Roman')
         } else {
-          console.log('选择字体')
           this.epubBook.rendition.themes.font(familyName)
         }
       }
