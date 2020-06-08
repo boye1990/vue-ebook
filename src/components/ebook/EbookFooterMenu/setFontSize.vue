@@ -42,7 +42,7 @@
 <script>
 import { ebookMixin } from '../../../utils/mixin'
 import { FONT_FAMILY } from '../../../utils/book'
-import { setLocalStorage, getLocalStorage } from '../../../utils/localStorage'
+import { setBookLocalStorage, getBookLocalStorage } from '../../../utils/localStorage'
 export default {
   // 混入 mixins 获取 vuex中的数据 defaultFontSize
   mixins: [ebookMixin],
@@ -75,9 +75,9 @@ export default {
      * 获取缓存字号，字体
      */
     getLocalStorageSizeAndFamily () {
-      const fontSize = Number(getLocalStorage('fontSize'))
-      const selectFamilyIndex = Number(getLocalStorage('selectFamilyIndex'))
-      const defaultFamily = getLocalStorage('defaultFamily')
+      const fontSize = Number(getBookLocalStorage(this.fileName, 'fontSize'))
+      const selectFamilyIndex = Number(getBookLocalStorage(this.fileName, 'selectFamilyIndex'))
+      const defaultFamily = getBookLocalStorage(this.fileName, 'defaultFamily')
       if (fontSize) {
         this.setFontSize(fontSize)
       }
@@ -93,7 +93,7 @@ export default {
       // 调用mixins里面的方法修改vuex中的默认字号
       this.setDefaultFontSize(fontSize)
       if (this.epubBook.rendition && this.epubBook.rendition.themes) {
-        setLocalStorage('fontSize', fontSize)
+        setBookLocalStorage(this.fileName, 'fontSize', fontSize)
         this.epubBook.rendition.themes.fontSize(fontSize + 'px')
       }
     },
@@ -106,8 +106,8 @@ export default {
       this.selectFamilyIndex = index
       this.defaultFamily = familyName
       if (this.epubBook.rendition && this.epubBook.rendition.themes) {
-        setLocalStorage('selectFamilyIndex', index)
-        setLocalStorage('defaultFamily', familyName)
+        setBookLocalStorage(this.fileName, 'selectFamilyIndex', index)
+        setBookLocalStorage(this.fileName, 'defaultFamily', familyName)
         if (familyName === 'Default') {
           this.epubBook.rendition.themes.font('Times New Roman')
         } else {

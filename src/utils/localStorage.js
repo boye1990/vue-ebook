@@ -20,3 +20,31 @@ export function removeLocalStorage (key) {
 export function clearLocalStorage () {
   return localStorage.clear()
 }
+
+/**
+ * 为一本书开辟一个缓存, 存储的时候是一个json，获取的时候回转化成对象
+ * @param {*} fileName 书名
+ * @param {*} key 缓存内容的key值
+ * @param {*} value 对应的值
+ */
+export function setBookLocalStorage (fileName, key, value) {
+  let book = getLocalStorage(`${fileName}-info`)
+  if (!book) {
+    book = {}
+  }
+  book[key] = value
+  setLocalStorage(`${fileName}-info`, book)
+}
+
+/**
+ * 获取当前阅读书籍的缓存
+ * @param {*} fileName 书名
+ * @param {*} key 要获取的缓存key
+ */
+export function getBookLocalStorage (fileName, key) {
+  const book = getLocalStorage(`${fileName}-info`)
+  if (book) {
+    return book[key]
+  }
+  return null
+}
